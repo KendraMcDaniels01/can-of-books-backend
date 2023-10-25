@@ -1,32 +1,25 @@
-'use strict';
-
-require('dotenv').config();
-const mongoose = require('mongoose');
 const BookModel = require('./BookModel.js');
-const MONGODB_URL = process.env.MONGODB_URL;
 
-mongoose.connect(MONGODB_URL);
+const seedDatabase = async () => {
+  const book1 = new BookModel({
+    title: 'Book 1',
+    description: 'Description 1',
+    status: 'Available',
+  });
+  const book2 = new BookModel({
+    title: 'Book 2',
+    description: 'Description 2',
+    status: 'Checked Out',
+  });
+  const book3 = new BookModel({
+    title: 'Book 3',
+    description: 'Description 3',
+    status: 'Available',
+  });
 
-let book1 = BookModel({
-  title: 'Harry Potter and the Sorcerers Stone',
-  description: 'Harry goes to Hogwarts',
-  status: 'Must Read'
-});
-let book2 = BookModel({
-  title: 'Harry Potter Chamber of Secrets',
-  description: 'Harry fights a basilisk',
-  status: 'Must Read'
-});
-let book3 = BookModel({
-  title: 'Harry Potter and the Prisoner of Azkaban',
-  description: 'Harry meets his godfather',
-  status: 'Must Read'
-});
+  await book1.save();
+  await book2.save();
+  await book3.save();
+};
 
-Promise.all([
-  book1.save(),
-  book2.save(),
-  book3.save()
-  ]).then(documents => {
-  console.log(documents);
-});
+seedDatabase();

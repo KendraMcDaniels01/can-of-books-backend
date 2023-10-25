@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const BookModel = require('./BookModel.js');
+const seedDatabase = require('./seed.js');
 
 const PORT = process.env.PORT || 3001;
 const MONGODB_URL = process.env.MONGODB_URL;
@@ -13,9 +14,7 @@ app.use(cors());
 
 mongoose.connect(MONGODB_URL);
 
-// function sortBooks(bookObjects) {
-
-// }
+seedDatabase();
 
 app.get('/books', async (request, response) => {
   try {
