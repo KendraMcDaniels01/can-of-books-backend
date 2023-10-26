@@ -48,16 +48,13 @@ app.get('/books', async (request, response) => {
 app.put('/books/:id', async (request, response) => {
   try {
     const { title, description, status } = request.body;
-
+    const bookId = request.params.id;
     // Validate request data
     if (!title || !status) {
       return response.status(400).json({ error: 'Invalid request data' });
     }
 
-    // Ensure that 'status' is one of the predefined options
-
-    // Find and update the existing book
-    const bookId = request.params.id;
+    // Find and update the existing book   
     const updatedBook = await BookModel.findByIdAndUpdate(
       bookId,
       { title, description, status },
